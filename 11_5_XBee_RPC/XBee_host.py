@@ -19,7 +19,7 @@ print("Enter AT mode.")
 print(char.decode())
 
 
-s.write("ATMY <BASE_MY>\r\n".encode())
+s.write("ATMY 0x140\r\n".encode())
 
 char = s.read(3)
 
@@ -28,7 +28,7 @@ print("Set MY <BASE_MY>.")
 print(char.decode())
 
 
-s.write("ATDL <BASE_DL>\r\n".encode())
+s.write("ATDL 0x240\r\n".encode())
 
 char = s.read(3)
 
@@ -37,7 +37,7 @@ print("Set DL <BASE_DL>.")
 print(char.decode())
 
 
-s.write("ATID <PAN_ID>\r\n".encode())
+s.write("ATID 0x1\r\n".encode())
 
 char = s.read(3)
 
@@ -88,34 +88,16 @@ while True:
 
     # send RPC to remote
 
-    s.write("/myled1/write 1\r".encode())
+
+    s.write("/getAcc/run\r".encode())
+
+    line=s.readline() # Read an echo string from K66F terminated with '\n' (pc.putc())
+
+    print(line.decode())
 
     time.sleep(1)
 
 
-    s.write("/myled2/write 1\r".encode())
-
-    time.sleep(1)
-
-
-    s.write("/myled3/write 1\r".encode())
-
-    time.sleep(1)
-
-
-    s.write("/myled3/write 0\r".encode())
-
-    time.sleep(1)
-
-
-    s.write("/myled2/write 0\r".encode())
-
-    time.sleep(1)
-
-
-    s.write("/myled1/write 0\r".encode())
-
-    time.sleep(1)
-
+   
 
 s.close()
